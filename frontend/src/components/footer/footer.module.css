@@ -1,9 +1,9 @@
 .footerContainer{
     display: flex;
-    background-color: var(--blue);
+    background-color: var(--blue-bg);
     width: 100%;
     color: var(--white);
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     align-items: center;
@@ -33,7 +33,7 @@
     border-radius: 16px;
     padding: 8px 10px;
     border: 1px solid var(--white);
-    background-color: var(--blue);
+    background-color: var(--blue-bg);
     color: var(--white);
     display: flex;
     gap: 5px;

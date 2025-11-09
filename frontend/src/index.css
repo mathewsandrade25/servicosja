@@ -34,14 +34,12 @@
     font-style: italic;
   }  
 
-#root{
-    max-width: 1280px;
-    margin: 0 auto;
-}
+
 
 :root{
     /* Padrão de cores do site */ 
-    --blue:#110263;
+    --blue-bg:#110263;
+    --blue:#1700ad;
     --orange:#ff432e;
     --white: #fff ;
 

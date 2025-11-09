@@ -4,6 +4,10 @@ import './index.css'
 import { createBrowserRouter , RouterProvider } from 'react-router'
 import App from './App.jsx'
 import Home from './pages/home/home.jsx'
+import Services from './pages/services/services.jsx'
+import Login from './pages/login/login.jsx'
+import Plans from './pages/plans/plans.jsx'
+import About from './pages/about/about.jsx'
 
 const pages = createBrowserRouter([
   {
@@ -11,10 +15,10 @@ const pages = createBrowserRouter([
     element:<App/>,
     children:[
       { path: '/' , element: <Home/> },
-      { path: '/services' , element: <Home/> },
-      { path: '/profile' , element: <Home/> },
-      { path: '/plates' , element: <Home/> },
-      { path: '/auth' , element: <Home/> },
+      { path: '/services' , element: <Services/> },
+      { path: '/login' , element: <Login/> },
+      { path: '/plans' , element: <Plans/> },
+      { path: '/about' , element: <About/> },
     ]
   }
 ])
