@@ -30,7 +30,7 @@ export default function Navbar () {
             <img src="/img/logo/logo.png" alt="logo Serviçosjá"/>
 
             <div className={styles.navLinkContainer}>
-                {/* Aplicar a função getLinkClassName para cada Link */}
+                
                 <Link 
                     className={getLinkClassName('/')} 
                     to={'/'}
