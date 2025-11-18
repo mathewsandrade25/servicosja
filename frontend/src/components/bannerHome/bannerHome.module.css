@@ -35,7 +35,7 @@
     font-family: var(--font);
 }
 
-.txtContainer button{
+.btnBanner {
     padding: 6px 10px;
     border-radius: 8px;
     border: none;
@@ -43,6 +43,8 @@
     background-color: var(--orange);
     color: var(--white);
     font-family: var(--font-bold);
+    text-align: center;
+    text-decoration: none;
     font-size: 20px;
     cursor: pointer;
     margin-top: 30px;

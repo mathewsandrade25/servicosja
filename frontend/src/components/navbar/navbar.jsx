@@ -39,7 +39,7 @@ export default function Navbar () {
 
     return (
         <nav className={styles.navbarContainer}>
-            <img src="/img/logo/logo.png" alt="logo Serviçosjá"/>
+            <Link to={'/'}><img src="/img/logo/logo.png" alt="logo Serviçosjá"/></Link>
 
             <div className={styles.navLinkContainer}>
                 

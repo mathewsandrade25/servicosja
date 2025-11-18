@@ -8,14 +8,15 @@
     position: relative;
     border-radius: 16px;
     box-shadow: 4px 4px 8px #767474;
+    cursor: pointer;
 }
 
 .providerBox img{
     width: 42%;
     border-radius: 50%;
     position: absolute;
-    top: 4%;
-    left: 2%;
+    top: 3%;
+    left: 6%;
 }
 
 .providerInfos{

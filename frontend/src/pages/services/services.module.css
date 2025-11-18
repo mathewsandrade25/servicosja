@@ -91,13 +91,15 @@
 .filterItem button{
     position:absolute;
     right: 0;
-    padding: 8.8px 8px ;
+    top: 0;
+    padding: 10.5px 8px ;
     line-height: 5px;
     border-radius: 5px;
     font-size: 15px;
     background-color: var(--blue);
     color: var(--white);
     cursor: pointer;
+    border: none;
 }
 
 .servicesList{

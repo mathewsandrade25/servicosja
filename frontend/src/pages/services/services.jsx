@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProviderBox from '../../components/providerBox/providerBox';
+import ProviderBox from '../../components/ProviderBox/ProviderBox';
 import styles from './services.module.css'
 import { FaSearch ,FaStar } from "react-icons/fa";
 
@@ -164,19 +164,19 @@ export default function Services () {
 
     return(
         <div className={styles.services}>
-            {/* O SEGREDO: ENVOLVER O MENU PRINCIPAL E O FILTRO EM UM ÚNICO CONTAINER PAI. */}
+          
             <div 
-                className={styles.menuWrapper} // Novo container (CSS opcional)
-                onMouseLeave={() => setActiveMenuId(null)} // Aplica o onMouseLeave ao container PAI
+                className={styles.menuWrapper} 
+                onMouseLeave={() => setActiveMenuId(null)} 
             >
-                {/* 1. Services Menu (com onMouseEnter, SEM onMouseLeave) */}
+              
                 <div className={styles.servicesMenu}>
                     {menuData.map((item) => (
                         <div 
                             key={item.id} 
                             className={styles.menuItem}
                             onMouseEnter={() => setActiveMenuId(item.id)}
-                            // Remover o onMouseLeave daqui!
+                        
                         >
                             <a id={item.id} href="#">
                                 {item.label}
@@ -185,7 +185,7 @@ export default function Services () {
                     ))}
                 </div>
 
-                {/* 2. Menu Filter (RENDERIZADO DENTRO do Wrapper e Condicionalmente) */}
+               
                 {activeMenuItem && (
                     <div className={styles.menuFilter}>
                         {activeMenuItem.subItems.map((subItem) => (

@@ -49,6 +49,7 @@
     cursor: pointer;
     width:180px;
     font-family: var(--font);
+    font-size: 0.8em;
 }
 
 .contacts h3{

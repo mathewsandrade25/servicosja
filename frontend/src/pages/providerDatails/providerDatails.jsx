@@ -1,4 +1,6 @@
 import styles from './providerDatails.module.css';
+import {FaUserCircle} from 'react-icons/fa';
+import ProviderBox from '../../components/ProviderBox/ProviderBox';
 
 export default function ProviderDatails () {
     return(
@@ -20,13 +22,74 @@ export default function ProviderDatails () {
             <div className={styles.providerDatailsServices}>
                 <div className={styles.providerDatailsAvailableServices}>
                     <div className={styles.providerAvailable}>
-                        <h3>4.6</h3>
+                        <h3><FaUserCircle/>  4.6</h3>
+                        <div className={styles.stars}>
+
+                            <div className={styles.status}>
+                                <h5>Exelente</h5>
+                            </div>
+
+                            <div className={styles.starFull}>
+                                ★★★★★
+                            </div>
+                        </div>        
                     </div >  
+
+                      <div className={styles.comments}>
+                            <div className={styles.commentUser}>
+                               <h5> <FaUserCircle/>  Muito profissional!</h5>
+
+                                <div className={styles.starFull}>
+                                ★★★★★
+                                 </div>
+                            </div>   
+
+                           
+                             <div className={styles.commentUser}>
+                               <h5> <FaUserCircle/>  pontual!</h5>
+
+                                <div className={styles.starFull}>
+                                ★★★★★
+                                 </div>
+                            </div>  
+
+                             <div className={styles.commentUser}>
+                               <h5> <FaUserCircle/>  Otimo profissional!</h5>
+
+                                <div className={styles.starFull}>
+                                ★★★★★
+                                 </div>
+                            </div>  
+
+                             <div className={styles.commentUser}>
+                               <h5> <FaUserCircle/>  Muito profissional!</h5>
+
+                                <div className={styles.starFull}>
+                                ★★★★★
+                                 </div>
+                            </div>   
+                        </div>     
                 </div>    
 
                 <div className={styles.providerDatailsGallery}>
-
+                    <div className={styles.imgGallery}><img src="/img/exemples/ex1.jpg" alt="Galeria do prestador" /></div>
+                    <div className={styles.imgGallery}><img src="/img/exemples/ex2.jpg" alt="Galeria do prestador" /></div>
+                    <div className={styles.imgGallery}><img src="/img/exemples/ex3.jpg" alt="Galeria do prestador" /></div>
+                    <div className={styles.imgGallery}><img src="/img/exemples/ex4.jpg" alt="Galeria do prestador" /></div>
+                    <div className={styles.imgGallery}><img src="/img/exemples/ex5.png" alt="Galeria do prestador" /></div>
+                    <div className={styles.imgGallery}><img src="/img/exemples/ex5.png" alt="Galeria do prestador" /></div>
                 </div>
+            </div>
+
+           <div className={styles.requestService}>
+             <button>Solicitar serviço</button>
+           </div>
+
+            <div className={styles.proviersSearch}>
+                <ProviderBox />
+                <ProviderBox />
+                <ProviderBox />
+
             </div>
         </div>
     )
