@@ -75,3 +75,32 @@ select{
     object-fit: cover;
      border-radius: 25px;
 }
+
+@media screen and (max-width:1000px){
+    .registrationForm{
+        width: 100%;
+        padding: 20px 90px;
+    }
+    .registrationImage{
+        display: none;
+    }
+    
+}
+
+
+@media screen and (max-width:700px){
+    .registrationForm{
+       
+        padding: 20px 60px;
+    }
+    
+}
+
+
+@media screen and (max-width:500px){
+    .registrationForm{
+       
+        padding: 20px 20px;
+    }
+    
+}

@@ -10,6 +10,7 @@ import Plans from './pages/plans/plans.jsx'
 import About from './pages/about/about.jsx'
 import UserRegistration from './pages/userRegistration/userRegistration.jsx'
 import ProviderRegistration from './pages/providerRegistration/providerRegistration.jsx'
+import ProviderDatails from './pages/providerDatails/providerDatails.jsx'
 
 const pages = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const pages = createBrowserRouter([
       { path: '/about' , element: <About/> },
       { path: '/userRegistration' , element: <UserRegistration/> },
       { path: '/providerRegistration' , element: <ProviderRegistration/> },
+      { path: '/providerDatails' , element: <ProviderDatails/> },
     ]
   }
 ])

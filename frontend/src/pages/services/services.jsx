@@ -201,7 +201,7 @@ export default function Services () {
             </div>
             
             <div className={styles.servicesBody}>
-                {/* ... (Restante do servicesBody permanece o mesmo) ... */}
+               
                 <div className={styles.servicesFilter}>
                     <div className={styles.filterItem}><input type="text" /><button><FaSearch /></button></div>
 

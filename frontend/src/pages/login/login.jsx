@@ -36,10 +36,12 @@ export default function Login () {
         <div className={styles.loginContainer}>
             <div onClick={handleOpenProvider} className={styles.loginBoxProvider}>
                 <h3><FaHelmetSafety />Profissional</h3>
+                
             </div>
 
             <div onClick={handleOpenUser} className={styles.loginBoxUser}>
                 <h3> <FaUserAlt />Usuario</h3>
+                
             </div>
             <LoginUserPopup close={handleCloseUser} open={openUser} />
             <LoginProviderPopup close={handleCloseProvider} open={openProvider} />

@@ -12,8 +12,8 @@ export default function LoginProviderPopup ({open, close}) {
             <Dialog  className={styles.popupContainer} onClose={close} open={open}>
                <div className={styles.popup}>
                     <div className={styles.popupMenu}>
-                        <img src="/img/logo/Simbolo.svg" alt="Logo serviços já" />
-                        <h2>Entrar</h2>
+                        <img src="/img/logo/logo.png" alt="Logo serviços já" />
+    
                         <div onClick={close} className={styles.exitIcon}>
                             <IoExitOutline />
                         </div>
@@ -33,7 +33,7 @@ export default function LoginProviderPopup ({open, close}) {
                     </div>
 
                     <div className={styles.popupFooter}>
-                        <a href="/providerRegistration"><button>Não Tem Uma Conta?</button></a>
+                        <a href="/providerRegistration"><button>Não Tem Uma Conta? Cadastre-se</button></a>
                     </div>
                </div>
 

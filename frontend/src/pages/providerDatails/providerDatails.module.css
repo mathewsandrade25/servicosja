@@ -1,0 +1,45 @@
+.providerDatailsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+   width: 70%;
+   margin: 0 auto;
+}
+
+.providerDatailsHome{
+    width: 100%;
+    margin:30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.providerDatailsImage{
+    width: 50%;
+}
+
+.providerDatailsImage img{
+    width: 200px;
+    border: 3px solid var(--orange);
+    border-radius: 50%;
+}
+
+.providerDatailsInfo{
+    width: 50%;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 15px;
+    font-family: var(--font);
+    color: var(--blue);
+}
+
+.line{
+    width: 100%;
+    margin: 0 auto;
+    height: 3px;
+    border-radius: 8px;
+    background-color: var(--orange);
+    margin: 5px 0;
+}

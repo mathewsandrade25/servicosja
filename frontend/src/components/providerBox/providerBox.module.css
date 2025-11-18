@@ -32,7 +32,7 @@
 
 .providerInfos p{
     font-family: var(--font);
-    font-size: 12px;
+    font-size: 0.7em;
 }
 
 .providerResum{
@@ -58,7 +58,7 @@
         width: 36%;
     }
 .providerBox img{
-    top: 4%;
+    top: 5%;
     left: 5%;
 }
 
@@ -66,13 +66,20 @@
     display: flex;
     max-width: 200px;
     gap: 8px;
-    padding-top:8% ;
+    padding-top:10% ;
     color: #ffcd29;
-    font-size: 23px;
+    font-size: 1em;
     
 }
 
 
+}
+
+@media screen and (max-width:1420px) {
+  .providerBox img{
+    top: 8%;
+    left: 5%;
+}
 }
 
 @media screen and (max-width:1220px) {
@@ -80,5 +87,72 @@
         width: 60%;
     }
 
+      .providerBox img{
+    top: 8%;
+    left: 5%;
+    width: 30%;
+    
+}
+ 
+}
+
+@media screen and (max-width:1050px) {
+    .providerBox{
+        width: 60%;
+    }
+
+      .providerBox img{
+    top: 8%;
+    left: 5%;
+    width: 35%;
+    
+}
+ 
+}
+
+@media screen and (max-width:900px) {
+    .providerBox{
+        width: 60%;
+    }
+
+      .providerBox img{
+    top: 8%;
+    left: 5%;
+    width: 40%;
+    
+}
+ 
+}
+
+@media screen and (max-width:830px) {
+    .providerBox{
+        width: 60%;
+    }
+
+      .providerBox img{
+    top: 10%;
+    left: 5%;
+    width: 33%;
+    
+}
+ 
+}
+
+@media screen and (max-width:700px) {
+    .providerBox{
+        width: 60%;
+    }
+
+      .providerBox img{
+    top: 6%;
+    left: 5%;
+    width: 40%;
+    
+}
+
+.providerBox{
+width: 80%;
+
+}
  
 }

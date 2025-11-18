@@ -15,27 +15,29 @@
 
 .menuFilter{
     width: 100%;
-    padding: 30px;
     background-color: #fcfcfc;
     color: #767474;
     position: absolute;
-    top:160px;
+    top:142px;
     border-top: 2px solid var(--orange);
     z-index: 5;
     font-family: var(--font);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+   
     padding: 25px;
+     align-items: left;
     justify-content: space-around;
 }
 
 .menuFilter a{
-    width: 33%;
+    width: 50%;
     margin-bottom: 15px;
     text-decoration: none;
     text-align: left;
     color: var(--blue);
+    font-size: 0.8em;
+    padding: 0;
 }
 
 .servicesMenu a{
@@ -126,7 +128,7 @@
     gap: 8px;
     padding-top:8px ;
     color: #ffcd29;
-    font-size: 30px;
+    font-size: 1.5em;
 }
 
 .starSponsored svg{
@@ -148,5 +150,20 @@
     padding-top: 60px;
     align-items: center;
     justify-content: center;
+}
+
+
+
+@media screen and (max-width:830px) {
+
+ .servicesFilter{
+    display: none;
+ }
+
+ .providerContainer{
+    width: 100%;
+   
+ }
+
 }
 
