@@ -3,19 +3,23 @@ import { IMaskInput } from 'react-imask';
 import styles from './Registration.module.css';
 
 export default function UserRegistration() {
-    // 1. Estado único para todos os dados do formulário
     const [formDataUser, setFormDataUser] = useState({});
 
-    // Função de handler para Inputs regulares e Selects
+    const caseSensitiveFields = ['password', 'confirmPassword'];
+
     const handleChangeSetDataUser = (e) => {
         const { name, value } = e.target;
+        
+        const newValue = caseSensitiveFields.includes(name) 
+            ? value 
+            : value.toLowerCase(); 
+        
         setFormDataUser(prevData => ({
             ...prevData,
-            [name]: value
+            [name]: newValue
         }));
     };
-
-    // Função de handler para IMaskInput (usa onAccept)
+    
     const handleMaskedInputChange = (value, mask, e) => {
         
         const name = e.target.name; 
@@ -34,7 +38,7 @@ export default function UserRegistration() {
                 <h5>A um click da solução do seu problema.</h5>
                 <h2>CADASTRE-SE!</h2>
                 <form>
-                   
+                    
                     <input 
                         type="text" 
                         placeholder="Nome Completo" 
@@ -45,10 +49,10 @@ export default function UserRegistration() {
                     />
                     
                     <div className={styles.input50}>
-                       
+                        
                         <IMaskInput
                             mask="000.000.000-00"
-                            name='cpf' // Adicionado name
+                            name='cpf' 
                             value={formDataUser.cpf || ''}
                             onAccept={handleMaskedInputChange} 
                             placeholder='Cpf'
@@ -56,7 +60,7 @@ export default function UserRegistration() {
                             required 
                         /> 
                         
-                       
+                        
                         <IMaskInput
                             mask="00/00/0000"
                             name='dataNascimento'
@@ -68,7 +72,7 @@ export default function UserRegistration() {
                         /> 
                     </div>
                     
-                   
+                    
                     <select 
                         id="sexo" 
                         name='sexo' 
@@ -81,42 +85,51 @@ export default function UserRegistration() {
                         <option value="feminino">Feminino</option>
                         <option value="nao-informado">Prefiro não informar</option>
                     </select>
+
+                    <div className={styles.input50}>
                     
-                    {/* ENDEREÇO */}
-                    <input 
-                        type="text" 
-                        placeholder='Endereço' 
-                        name='endereco' 
-                        value={formDataUser.endereco || ''} 
-                        onChange={handleChangeSetDataUser} 
-                        required
-                    /> 
+                        <input 
+                            type="text" 
+                            placeholder='Rua' 
+                            name='rua' 
+                            value={formDataUser.rua || ''}
+                            onChange={handleChangeSetDataUser} 
+                            required
+                        /> 
+
+                         <input 
+                            type="number" 
+                            placeholder='Numero' 
+                            name='number' 
+                             value={formDataUser.number || ''}
+                            onChange={handleChangeSetDataUser} 
+                            required
+                        /> 
                     
-                    {/* CEP: 00000-000 (IMaskInput) */}
+                    </div>
                     <IMaskInput
                         mask="00000-000"
-                        name='cep' // Adicionado name
-                        value={formDataUser.cep || ''} // Valor controlado
-                        onAccept={handleMaskedInputChange} // Usando onAccept
+                        name='cep' 
+                        value={formDataUser.cep || ''} 
+                        onAccept={handleMaskedInputChange} 
                         placeholder='Cep'
                         type="text" 
                         required 
                     /> 
                     
-                    {/* TELEFONE: (00) 00000-0000 (IMaskInput Dinâmico) */}
+                    
                     <IMaskInput
                         mask={['(00) 0000-0000', '(00) 00000-0000']}
-                        name='telefone' // Adicionado name
-                        value={formDataUser.telefone || ''} // Valor controlado
-                        onAccept={handleMaskedInputChange} // Usando onAccept
+                        name='telefone' 
+                        value={formDataUser.telefone || ''} 
+                        onAccept={handleMaskedInputChange} 
                         placeholder='Telefone'
                         type="tel" 
                         required 
                     /> 
                     
-                    {/* CAMPOS DE LOGIN */}
+                    
                     <input type="email" placeholder="Email" name='email' onChange={handleChangeSetDataUser} value={formDataUser.email || ''} required />
-                    <input type="email" placeholder="Confirme seu Email" name='confirmEmail' onChange={handleChangeSetDataUser} value={formDataUser.confirmEmail || ''} required />
                     <input type="password" placeholder="Senha" name='password' onChange={handleChangeSetDataUser} value={formDataUser.password || ''} required />
                     <input type="password" placeholder="Confirme a Senha" name='confirmPassword' onChange={handleChangeSetDataUser} value={formDataUser.confirmPassword || ''} required />
                     

@@ -3,43 +3,34 @@ import { IMaskInput } from 'react-imask';
 import styles from './Registration.module.css';
 
 export default function ProviderRegistration() {
-
-    // Mantendo o estado 'categoria' para controlar as opções de 'servico'
     const [categoria, setCategoria] = useState('');
+    const [formDataProvider, setFormDataProvider] = useState({});
 
-    // Iniciando formDataProvider como um objeto vazio para evitar o erro de 'null'
-    // ao tentar desestruturá-lo no handleChangeSetDataProvider.
-    const [formDataProvider, setFormDataProvider] = useState({}); 
+    const caseSensitiveFields = ['password', 'confirmPassword'];
 
     const handleChangeSetDataProvider = (e) => {
         const { name, value } = e.target;
-        
-        // Se o campo for a 'categoria', também atualiza o estado 'categoria'
+
+        const newValue = caseSensitiveFields.includes(name)
+            ? value
+            : (typeof value === 'string' ? value.toLowerCase() : value);
+
         if (name === 'categoria') {
-            setCategoria(value);
-            
-            // Opcional: Quando a categoria muda, você pode querer resetar o campo 'servico'
-            // para a opção padrão, garantindo que não haja um valor de serviço antigo inválido.
+            setCategoria(newValue);
             setFormDataProvider(prevData => ({
                 ...prevData,
-                [name]: value,
-                'servico': '' // Reseta o serviço quando a categoria muda
+                [name]: newValue,
+                'servico': ''
             }));
         } else {
-            // Para todos os outros campos, incluindo o 'servico' e os outros inputs
             setFormDataProvider(prevData => ({
                 ...prevData,
-                [name]: value
+                [name]: newValue
             }));
         }
-    }
-    
+    };
+
     console.log(formDataProvider);
-    
-    // NOTA IMPORTANTE:
-    // O select de 'sexo' e 'horario' precisam do 'onChange' para funcionar!
-    // O select de 'categoria' precisa do 'onChange' e do 'value' controlado para atualizar o 'servico'!
-    // O select de 'servico' precisa do 'onChange' e do 'value' controlado para setar o valor no formDataProvider!
 
     return (
         <div className={styles.userRegistrationContainer}>
@@ -47,45 +38,41 @@ export default function ProviderRegistration() {
                 <h5>Seu próximo cliente está a um click.</h5>
                 <h2>CADASTRE-SE!</h2>
                 <form>
-                    <input 
-                        type="text" 
-                        placeholder="Nome Completo" 
+                    <input
+                        type="text"
+                        placeholder="Nome Completo"
                         name='name'
                         onChange={handleChangeSetDataProvider}
-                        required 
+                        required
                     />
-                    
+
                     <div className={styles.input50}>
-                        {/* CPF: 000.000.000-00 */}
                         <IMaskInput
                             mask="000.000.000-00"
                             name='cpf'
                             placeholder='Cpf'
-                            type="text" 
+                            type="text"
                             onChange={handleChangeSetDataProvider}
-                            required 
-                        /> 
-                        
-                        {/* DATA DE NASCIMENTO: 00/00/0000 */}
+                            required
+                        />
+
                         <IMaskInput
                             mask="00/00/0000"
                             name='dataNascimento'
                             placeholder='Data de nascimento'
                             onChange={handleChangeSetDataProvider}
                             type="text"
-                            required 
-                        /> 
+                            required
+                        />
                     </div>
-                    
-                    {/* SELECT DE SEXO CONTROLADO - ADICIONADO onChange e value */}
-                    <select 
-                        id="sexo" 
+
+                    <select
+                        id="sexo"
                         name='sexo'
-                        value={formDataProvider.sexo || ''} // Controla o valor com base no estado
-                        onChange={handleChangeSetDataProvider} // Adicionado o handler
+                        value={formDataProvider.sexo || ''}
+                        onChange={handleChangeSetDataProvider}
                         required
                     >
-                        {/* A opção inicial deve ter value="" para corresponder ao estado inicial '' */}
                         <option value="" disabled hidden>Sexo</option>
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
@@ -93,42 +80,52 @@ export default function ProviderRegistration() {
                         <option value="nao-binario">Não-binário</option>
                         <option value="nao-informado">Prefiro não informar</option>
                     </select>
-                    
-                    <input 
-                        type="text" 
-                        placeholder='Endereço' 
-                        name='endereco'
-                        onChange={handleChangeSetDataProvider}
-                        required
-                    /> 
-                    
-                    {/* CEP: 00000-000 */}
+
+                    <div className={styles.input50}>
+                        <input
+                            type="text"
+                            placeholder='Rua'
+                            name='rua'
+                            value={formDataProvider.rua || ''}
+                            onChange={handleChangeSetDataProvider}
+                            required
+                        />
+
+                        <input
+                            type="number"
+                            placeholder='Numero'
+                            name='number'
+                            value={formDataProvider.number || ''}
+                            onChange={handleChangeSetDataProvider}
+                            required
+                        />
+
+                    </div>
+
                     <IMaskInput
                         mask="00000-000"
                         name='cep'
                         onChange={handleChangeSetDataProvider}
                         placeholder='Cep'
-                        type="text" 
-                        required 
-                    /> 
-                    
-                    {/* TELEFONE: (00) 0000-0000 ou (00) 00000-0000 */}
+                        type="text"
+                        required
+                    />
+
                     <IMaskInput
                         mask={['(00) 0000-0000', '(00) 00000-0000']}
                         name='telefone'
                         placeholder='Telefone'
                         onChange={handleChangeSetDataProvider}
-                        type="tel" 
-                        required 
-                    /> 
-                    
+                        type="tel"
+                        required
+                    />
+
                     <div className={styles.input50}>
-                        {/* SELECT DE CATEGORIA CONTROLADO - ADICIONADO name, onChange e value */}
-                        <select 
-                            id="categoria" 
-                            name='categoria' // Adicionado o name
-                            value={categoria} // O valor agora é controlado pelo estado 'categoria'
-                            onChange={handleChangeSetDataProvider} // Adicionado o handler
+                        <select
+                            id="categoria"
+                            name='categoria'
+                            value={categoria}
+                            onChange={handleChangeSetDataProvider}
                             required
                         >
                             <option value="" disabled hidden>Categoria do serviço</option>
@@ -142,12 +139,11 @@ export default function ProviderRegistration() {
                             <option value="transporte">Transporte</option>
                         </select>
 
-                        {/* SELECT DE SERVIÇO CONTROLADO - ADICIONADO name, onChange e value */}
-                        <select 
-                            id="servico" 
-                            name='servico' // Adicionado o name
-                            value={formDataProvider.servico || ''} // Controla o valor pelo estado
-                            onChange={handleChangeSetDataProvider} // Adicionado o handler
+                        <select
+                            id="servico"
+                            name='servico'
+                            value={formDataProvider.servico || ''}
+                            onChange={handleChangeSetDataProvider}
                             required
                         >
                             <option value="" disabled hidden>Serviço</option>
@@ -159,8 +155,8 @@ export default function ProviderRegistration() {
                             {categoria === 'beleza-bem-estar' && (
                                 <>
                                     <option value="" disabled hidden>Serviço</option>
-                                    <option value="alongamento-unha">Alongamento de unha</option> 
-                                    <option value="depilador">Depilador/Epilador(a)</option> 
+                                    <option value="alongamento-unha">Alongamento de unha</option>
+                                    <option value="depilador">Depilador/Epilador(a)</option>
                                     <option value="manicure">Manicure/Pedicure</option>
                                     <option value="alongamento-cilios">Alongamento de cílios</option>
                                     <option value="megahair">Especialista em Megahair</option>
@@ -177,7 +173,7 @@ export default function ProviderRegistration() {
                                     <option value="designer-sobrancelha">Designer de sobrancelha</option>
                                     <option value="lash-designer">Lash Designer </option>
                                     <option value="maquiador">Maquiador(a)</option>
-                                </> 
+                                </>
                             )}
 
                             {categoria === 'transporte' && (
@@ -194,7 +190,7 @@ export default function ProviderRegistration() {
                                 </>
                             )}
 
-                            { categoria === 'solucoes-profissionais' && (
+                            {categoria === 'solucoes-profissionais' && (
                                 <>
                                     <option value="" disabled hidden>Serviço</option>
                                     <option value="professor">Professor</option>
@@ -286,7 +282,7 @@ export default function ProviderRegistration() {
                                 </>
                             )}
 
-                            {categoria === 'reforma-construcao' && ( 
+                            {categoria === 'reforma-construcao' && (
                                 <>
                                     <option value="" disabled hidden>Serviço</option>
                                     <option value="aplicacao-massa-corrida">Aplicação de massa corrida</option>
@@ -309,22 +305,20 @@ export default function ProviderRegistration() {
                     </div>
 
                     <div className={styles.select50}>
-                        {/* SELECT DE HORÁRIO CONTROLADO - ADICIONADO name e value */}
-                        <select 
-                            id="horario" 
-                            name='horario' // Adicionado o name
-                            value={formDataProvider.horario || ''} // Controla o valor com base no estado
+                        <select
+                            id="horario"
+                            name='horario'
+                            value={formDataProvider.horario || ''}
                             onChange={handleChangeSetDataProvider}
                             required
                         >
                             <option value="" disabled hidden>Disponibilidade 24H</option>
                             <option value="true">Sim</option>
                             <option value="false">Não</option>
-                            
+
                         </select>
                     </div>
-                    
-                    {/* ... campos de Email e Senha (já estão corretos) ... */}
+
                     <input type="email" placeholder="Email" name='email' onChange={handleChangeSetDataProvider} required />
                     <input type="password" placeholder="Senha" onChange={handleChangeSetDataProvider} name='password' required />
                     <input type="password" placeholder="Confirme a Senha" onChange={handleChangeSetDataProvider} name='confirmPassword' required />
