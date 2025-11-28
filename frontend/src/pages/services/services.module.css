@@ -148,7 +148,8 @@
     width: 70%;
     height: 100%;
     overflow-y: auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr);
     flex-wrap: wrap;
     gap: 30px;
     cursor: pointer;
@@ -156,6 +157,20 @@
     align-items: center;
     justify-content: center;
 }
+
+
+@media screen and (max-width:1549px) {
+
+
+
+ .providerContainer{
+    display: flex;
+   margin: 0 auto;
+ }
+
+}
+
+
 
 
 
@@ -171,6 +186,7 @@
 
  .providerContainer{
     width: 80%;
+    display: flex;
    margin: 0 auto;
  }
 
