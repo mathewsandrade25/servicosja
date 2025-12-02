@@ -130,11 +130,10 @@ export default function ProviderServices() {
     }, [url, setLoading, setProviderAccount])
 
     // NOVO: Função unificada para aplicar múltiplos filtros
-    const getFilteredProviders = useCallback(async ({ material, hours24, weekend }) => {
+    const getFilteredProviders = useCallback(async ({ material, hours24, weekend, service, category, minRating }) => {
         setLoading(true);
         const params = [];
-
-        // Adiciona parâmetros apenas se não forem null (ou seja, se o filtro foi ativado)
+        
         if (material !== null) {
             params.push(`possui_material_proprio=${material}`);
         }
@@ -143,6 +142,15 @@ export default function ProviderServices() {
         }
         if (weekend !== null) {
             params.push(`atende_fim_de_semana=${weekend}`);
+        }
+        if (service) {
+            params.push(`servico=${service}`);
+        }
+        if (category) {
+            params.push(`categoria=${category}`);
+        }
+        if (minRating) {
+            params.push(`nota_minima=${minRating}`);
         }
 
         const queryString = params.length > 0 ? '?' + params.join('&') : '';
@@ -162,6 +170,40 @@ export default function ProviderServices() {
         }
     }, [url, setLoading, setPoviders]);
 
+    const getBestRatedProviders = useCallback(async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${url}/accounts/prestadores/?melhor_avaliado=true`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.error("Erro ao buscar prestadores:", error);
+            return [];
+        } finally {
+            setLoading(false);
+        }
+    }, [url]);
+
+    const getReviews = useCallback(async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${url}/avaliacoes/listar/`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            const result = await response.json();
+            
+            return result.avaliacoes || [];
+        } catch (error) {
+            console.error("Erro ao buscar avaliações:", error);
+            return [];
+        } finally {
+            setLoading(false);
+        }
+    }, [url]);
 
     return { 
         register,
@@ -174,6 +216,8 @@ export default function ProviderServices() {
         getProviderPerfil,
         providerAccount,
         // Novo método unificado de filtro:
-        getFilteredProviders
+        getFilteredProviders,
+        getBestRatedProviders,
+        getReviews
     };
 }
