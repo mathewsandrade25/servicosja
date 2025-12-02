@@ -150,41 +150,72 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 300px;
     height: 350px;
     background-color: var(--white);
-    padding: 20px 20px 0 20px;
+    padding: 10px 20px 0 20px; 
     border: 2px solid var(--orange);
     border-radius: 10px;
     z-index: 3;    
     text-align: center;
     cursor: pointer;
-   
 }
 
 .sponsoredBox img{
-    width: 150px;
+    width: 130px; 
     border-radius: 50%;
     border: 2px solid var(--orange);
+    margin-bottom: 5px;
 }
 
 .sponsoredBox h3{
     font-family: var(--font-bold);
     color: var(--blue);
-    font-size: 34px;
+    font-size: 24px;
+    margin-bottom: 5px; 
+    
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.sponsoredBox p {
+.sponsoredBox > p {
     font-family: var(--font);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+
+    width: 100%;
+    height: 50px; 
+    overflow: hidden;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
 }
 
 .infosSponsored{
     display: flex;
-    align-items: centr;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 2px;
+    margin-top: 10px; 
+}
+
+.txtSponsored {
+    max-width: 100%;
+    text-align: center; 
+}
+
+.txtSponsored b {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .txtSponsored p , b{
@@ -195,14 +226,18 @@
 
 .txtSponsored p {
     font-size: 12px;
+    height: auto;
+    margin: 0; 
+    display: block; 
 }
 
 .starSponsored{
     display: flex;
-    gap: 8px;
-    padding-top:8px ;
+    gap: 5px;
+    padding-top: 0;
     color: #ffcd29;
-    font-size: 30px;
+    font-size: 24px; 
+    justify-content: center;
 }
 
 

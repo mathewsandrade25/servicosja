@@ -7,20 +7,42 @@ import { HiOutlineTruck } from "react-icons/hi";
 import { FaPhoneVolume } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 
-
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper/modules';
 
 import 'swiper/css';
 import { useNavigate } from 'react-router';
 
-
-
+import { useEffect, useState } from 'react';
+import ProviderServices from '../../services/provider';
+import { useProviderContext } from '../../context/providerSelected';
 
 export default function Home () {
 
     const navigate = useNavigate();
+    const { setProviderSelected } = useProviderContext();
+
+    const { getBestRatedProviders, getReviews } = ProviderServices();
+
+    const [bestProviders, setBestProviders] = useState([]);
+    const [topReviews, setTopReviews] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const providers = await getBestRatedProviders();
+            if (providers && Array.isArray(providers)) {
+                setBestProviders(providers.slice(0, 6));
+            }
+
+            const reviews = await getReviews();
+            if (reviews && Array.isArray(reviews)) {
+                const sortedReviews = reviews.sort((a, b) => b.nota - a.nota);
+                setTopReviews(sortedReviews.slice(0, 6));
+            }
+        }
+        fetchData();
+    }, [getBestRatedProviders, getReviews]);
+
     return(
         <main className={styles.homeContainer}>
            <BannerHome/>
@@ -90,93 +112,46 @@ export default function Home () {
                     }
                     
                     >
-                    <SwiperSlide>
-                        <div className={styles.sponsoredBox}>
-                            <img src="img/exemples/Group 8.png" alt="" />
-                            <h3>Cristina Alves</h3>
-                            <p>Especialista em massagens relaxantes e terapias naturais</p>
-                            <div className={styles.infosSponsored}>
-                                <div className={styles.txtSponsored}>
-                                    <b>Recife</b>
-                                    <p>Graças</p>
+                    {bestProviders.map((provider) => (
+                        <SwiperSlide key={provider.id}>
+                            <div 
+                                className={styles.sponsoredBox} 
+                                onClick={() => {
+                                    setProviderSelected(provider);
+                                    navigate('/providerDatails');
+                                }}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <img 
+                                    src={provider.foto || "img/exemples/Group 8.png"} 
+                                    alt={provider.nome} 
+                                    style={{ objectFit: 'cover' }} 
+                                />
+                                <h3>{provider.nome}</h3>
+                                <p>{provider.biografia ? (provider.biografia.length > 50 ? provider.biografia.substring(0, 50) + "..." : provider.biografia) : (provider.servico?.nome || provider.categoria)}</p>
+                                <div className={styles.infosSponsored}>
+                                    <div className={styles.txtSponsored}>
+                                        <b>{provider.localizacao || "Localização"}</b>
+                                        <p>Prestador</p>
+                                    </div>
+                                    <div className={styles.starSponsored}>
+                                        {[...Array(5)].map((_, i) => (
+                                            <FaStar key={i} color={i < Math.round(provider.nota_media) ? "#ffc107" : "#e4e5e9"} />
+                                        ))}
+                                    </div>
                                 </div>
-                                <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                             </div>
-                         </div>
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                        <div className={styles.sponsoredBox}>
-                            <img src="img/exemples/Group 8.png" alt="" />
-                            <h3>Cristina Alves</h3>
-                            <p>Especialista em massagens relaxantes e terapias naturais</p>
-                            <div className={styles.infosSponsored}>
-                                <div className={styles.txtSponsored}>
-                                    <b>Recife</b>
-                                    <p>Graças</p>
-                                </div>
-                                <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                             </div>
-                         </div>
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                        <div className={styles.sponsoredBox}>
-                            <img src="img/exemples/Group 8.png" alt="" />
-                            <h3>Cristina Alves</h3>
-                            <p>Especialista em massagens relaxantes e terapias naturais</p>
-                            <div className={styles.infosSponsored}>
-                                <div className={styles.txtSponsored}>
-                                    <b>Recife</b>
-                                    <p>Graças</p>
-                                </div>
-                                <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                             </div>
-                         </div>
-                    </SwiperSlide>
-
-
-                    <SwiperSlide>
-                        <div className={styles.sponsoredBox}>
-                            <img src="img/exemples/Group 8.png" alt="" />
-                            <h3>Cristina Alves</h3>
-                            <p>Especialista em massagens relaxantes e terapias naturais</p>
-                            <div className={styles.infosSponsored}>
-                                <div className={styles.txtSponsored}>
-                                    <b>Recife</b>
-                                    <p>Graças</p>
-                                </div>
-                                <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                             </div>
-                         </div>
-                    </SwiperSlide>
-
-
-                    <SwiperSlide>
-                        <div className={styles.sponsoredBox}>
-                            <img src="img/exemples/Group 8.png" alt="" />
-                            <h3>Cristina Alves</h3>
-                            <p>Especialista em massagens relaxantes e terapias naturais</p>
-                            <div className={styles.infosSponsored}>
-                                <div className={styles.txtSponsored}>
-                                    <b>Recife</b>
-                                    <p>Graças</p>
-                                </div>
-                                <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                             </div>
-                         </div>
-                    </SwiperSlide>
-
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                    
+                    {/* Fallback if no providers are loaded yet or error */}
+                    {bestProviders.length === 0 && (
+                         <SwiperSlide>
+                            <div className={styles.sponsoredBox}>
+                                <p>Carregando prestadores...</p>
+                            </div>
+                        </SwiperSlide>
+                    )}
 
                 </Swiper>
 
@@ -212,51 +187,29 @@ export default function Home () {
                     }
                     
                     >
-                    <SwiperSlide>
-                        <div className={styles.comentsBox}>
-                           <h5>Mariana Beatriz</h5>
-                           <img className={styles.comentsBoxAspas} src="/img/partners/aspas.svg" alt="" />
-                           <p>Achei incrível poder avaliar direto pelo zap. Prático e rápido, igual o nome do site mesmo kkk</p>
-                           <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+                    {topReviews.map((review) => (
+                        <SwiperSlide key={review.id}>
+                            <div className={styles.comentsBox}>
+                               <h5>{review.cliente_nome}</h5>
+                               <img className={styles.comentsBoxAspas} src="/img/partners/aspas.svg" alt="" />
+                               <p>{review.comentario}</p>
+                               <div className={styles.starSponsored}>
+                                    {[...Array(5)].map((_, i) => (
+                                        <FaStar key={i} color={i < review.nota ? "#ffc107" : "#e4e5e9"} />
+                                    ))}
                                 </div>
-                         </div>
-                    </SwiperSlide>
+                             </div>
+                        </SwiperSlide>
+                    ))}
 
-                     <SwiperSlide>
-                        <div className={styles.comentsBox}>
-                           <h5>Mariana Beatriz</h5>
-                           <img className={styles.comentsBoxAspas} src="/img/partners/aspas.svg" alt="" />
-                           <p>Achei incrível poder avaliar direto pelo zap. Prático e rápido, igual o nome do site mesmo kkk</p>
-                           <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                         </div>
-                    </SwiperSlide>
-
-                     <SwiperSlide>
-                        <div className={styles.comentsBox}>
-                           <h5>Mariana Beatriz</h5>
-                           <img className={styles.comentsBoxAspas} src="/img/partners/aspas.svg" alt="" />
-                           <p>Achei incrível poder avaliar direto pelo zap. Prático e rápido, igual o nome do site mesmo kkk</p>
-                           <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                         </div>
-                    </SwiperSlide>
-
-                     <SwiperSlide>
-                        <div className={styles.comentsBox}>
-                           <h5>Mariana Beatriz</h5>
-                           <img className={styles.comentsBoxAspas} src="/img/partners/aspas.svg" alt="" />
-                           <p>Achei incrível poder avaliar direto pelo zap. Prático e rápido, igual o nome do site mesmo kkk</p>
-                           <div className={styles.starSponsored}>
-                                    <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-                                </div>
-                         </div>
-                    </SwiperSlide>
-
-
+                    {/* Fallback */}
+                    {topReviews.length === 0 && (
+                        <SwiperSlide>
+                            <div className={styles.comentsBox}>
+                               <p>Carregando avaliações...</p>
+                             </div>
+                        </SwiperSlide>
+                    )}
 
                 </Swiper>
                    </div>
