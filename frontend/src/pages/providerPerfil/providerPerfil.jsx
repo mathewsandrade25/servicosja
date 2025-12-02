@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import styles from './providerPerfil.module.css';
 import ProviderServices from '../../services/provider';
 import { useNavigate } from 'react-router';
-import RatingChart from './RatingChart'; // Componente de Área (Gráfico)
+import RatingChart from './RatingChart'; 
+import { FaEdit } from "react-icons/fa";
 
 // --- MOCK DATA (Seus dados mockados) ---
 const mockUserData = {
@@ -127,7 +128,7 @@ export default function ProviderPerfil({ userData = mockUserData }) {
     
     const {getProviderPerfil, providerAccount} = ProviderServices()
     const auth = localStorage.getItem('auth')
-    const authData = auth ? JSON.parse(auth) : {}; 
+    const authData =  JSON.parse(auth) 
     const profileId = authData.profile_id; 
 
     const navigate = useNavigate()
@@ -189,7 +190,7 @@ export default function ProviderPerfil({ userData = mockUserData }) {
         <div className={styles.dashboardPage}>
             <header className={styles.header}>
                 <div className={styles.perfil}>
-                    <img src={userData.perfilImg} alt="perfil" />
+                    <div className={styles.imgEdit}><img src={userData.perfilImg} alt="perfil" /><FaEdit /></div>
                     <div>
                         <h2>{providerAccount?.nome?.toUpperCase()}</h2>
                         <p>{providerAccount?.servico?.nome}</p>
@@ -202,6 +203,7 @@ export default function ProviderPerfil({ userData = mockUserData }) {
                 {/* 1. Informações Pessoais */}
                 <div className={styles.box}>
                     <h2>Informações Pessoais</h2>
+                    <div className={styles.iconEdit}><FaEdit /></div>
                     <div className={styles.descricaoGrid}>
                         <span>Nome: {providerAccount?.nome}</span>
                         <span>Data de Nasc: {providerAccount?.data_nascimento}</span>
@@ -214,6 +216,14 @@ export default function ProviderPerfil({ userData = mockUserData }) {
                         <span>Cidade: {providerAccount?.cidade}</span>
                         <span>Bairro: {providerAccount?.bairro}</span>
                     </div>
+                </div>
+
+                <div className={styles.box}>
+                    <h2>Descrição</h2>
+
+                    <textarea placeholder='Digite sua descrição'>
+
+                    </textarea>
                 </div>
 
                 {/* 2. Mensagens e Galeria */}

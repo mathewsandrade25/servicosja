@@ -62,18 +62,11 @@ export default function ProviderServices() {
             const result = await response.json(); 
             console.log("Resposta da API:", result);
 
-            const authData = { 
-                access: result.access,
-                refresh: result.refresh,
-                user_id: result.user_id,
-                nome: result.nome,
-                email: result.email ,
-                profile_id: result.profile_id,
-            };
+          
 
             localStorage.setItem(
                 'auth',
-                JSON.stringify(authData)
+                JSON.stringify(result)
             );
             
             return result; 
