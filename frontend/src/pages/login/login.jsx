@@ -1,53 +1,68 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import styles from './login.module.css';
+
 
 import { FaHelmetSafety } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
 
 import LoginUserPopup from '../../components/loginUserPopup/loginUserPopup';
 import LoginProviderPopup from '../../components/loginProviderPopup/loginProviderPopup';
-import { useAuth } from '../../context/AuthContext';
 
-export default function Login() {
+export default function Login () {
+    // Inicializa o hook de navegação
     const navigate = useNavigate();
-    const { isAuthenticated, user } = useAuth();
 
+    // Hook useEffect para checar o localStorage na montagem do componente
     useEffect(() => {
-        if (isAuthenticated) {
-            if (user?.tipo_usuario === 'prestador') {
-                navigate('/providerPerfil');
-            } else {
-                navigate('/userPerfil');
-            }
-        }
-    }, [isAuthenticated, user, navigate]);
+        // Verifica se 'auth' existe no localStorage
+        const auth = localStorage.getItem('auth');
+        const authData = JSON.parse(auth)
+        const userType = authData?.tipo_usuario
 
+
+        if (userType === "prestador") {
+            // Se 'auth' existir, redireciona para '/providerPerfil'
+            console.log('Item "auth" encontrado no localStorage. Redirecionando...');
+            navigate('/providerPerfil');
+        }
+
+        if (userType === "cliente") {
+            // Se 'auth' existir, redireciona para '/providerPerfil'
+            console.log('Item "auth" encontrado no localStorage. Redirecionando...');
+            navigate('/userPerfil');
+        }
+
+
+    }, [navigate]); // O array de dependências inclui 'navigate'
+
+    // --- Lógica de estado e popups (mantida) ---
 
     const [openUser, setOpenUser] = useState(false);
-
+    
+    // Corrigido para fechar o popup corretamente
     const handleCloseUser = () => {
-        setOpenUser(false);
+        setOpenUser(false); 
     }
-
+    
     const handleOpenUser = () => {
         setOpenUser(true);
     }
 
     const [openProvider, setOpenProvider] = useState(false);
-
+    
     // Corrigido para fechar o popup corretamente
     const handleCloseProvider = () => {
         setOpenProvider(false);
-    }
+    } 
 
     const handleOpenProvider = () => {
         setOpenProvider(true);
     }
-
+    
     // --- Renderização do componente (mantida) ---
 
-    return (
+    return(
         <div className={styles.loginContainer}>
             <div onClick={handleOpenProvider} className={styles.loginBoxProvider}>
                 <h3><FaHelmetSafety />Profissional</h3>
@@ -56,7 +71,7 @@ export default function Login() {
             <div onClick={handleOpenUser} className={styles.loginBoxUser}>
                 <h3> <FaUserAlt />Usuario</h3>
             </div>
-
+            
             {/* Popups renderizados no final */}
             <LoginUserPopup close={handleCloseUser} open={openUser} />
             <LoginProviderPopup close={handleCloseProvider} open={openProvider} />

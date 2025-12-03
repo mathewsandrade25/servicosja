@@ -27,6 +27,15 @@ export default function ProviderServices() {
                     resolve(result); 
                 }
             })
+            .then((result) => {
+                if (result) {
+                    localStorage.setItem(
+                        'auth',
+                        JSON.stringify({ token: result.access, user: result.nome_completo })
+                    );
+                    console.log(result);
+                }
+            })
             .catch((error) => {
                 console.log('Erro na requisição ou validação:', error);
                 throw error;
@@ -38,7 +47,7 @@ export default function ProviderServices() {
         });
     };
 
-     const login = async (formData) => {
+    const login = async (formData) => {
         setLoading(true);
 
         try {
@@ -53,8 +62,20 @@ export default function ProviderServices() {
             const result = await response.json(); 
             console.log("Resposta da API:", result);
 
-          
+            const authData = { 
+                access: result.access,
+                refresh: result.refresh,
+                user_id: result.user_id,
+                nome: result.nome,
+                email: result.email ,
+                profile_id: result.profile_id,
+            };
 
+            localStorage.setItem(
+                'auth',
+                JSON.stringify(authData)
+            );
+            
             return result; 
 
         } catch (error) {
@@ -93,7 +114,7 @@ export default function ProviderServices() {
     // Função para buscar um único perfil
     const getProviderPerfil = useCallback(( id) => {
         setLoading(true)
-        return fetch(`${url}/accounts/prestadores/${id}/`, {
+        fetch(`${url}/accounts/prestadores/${id}/`, {
             method:'GET',
             headers:{
                 'Content-Type': 'application/json',
@@ -103,12 +124,11 @@ export default function ProviderServices() {
         .then((response) => response.json()) 
         .then((result) => {
             setProviderAccount(result)
+            
             console.log(result)
-            return result;
         })
         .catch((error)=> {
             console.log(error)
-            throw error;
         })
         .finally(() => {
             setLoading(false)
@@ -192,38 +212,6 @@ export default function ProviderServices() {
         }
     }, [url]);
 
-    const updateProvider = async (data) => {
-        setLoading(true);
-        try {
-            const storedAuth = localStorage.getItem('auth');
-            const token = storedAuth ? JSON.parse(storedAuth).access : null;
-            if (!token) throw new Error("No token found");
-
-            const isFormData = data instanceof FormData;
-            const headers = {
-                'Authorization': `Bearer ${token}`
-            };
-            if (!isFormData) {
-                headers['Content-Type'] = 'application/json';
-            }
-
-            const response = await fetch(`${url}/accounts/perfil/prestador/editar/`, {
-                method: 'PATCH',
-                headers: headers,
-                body: isFormData ? data : JSON.stringify(data)
-            });
-
-            const result = await response.json();
-            if (!response.ok) throw result;
-            return result;
-        } catch (error) {
-            console.error("Error updating provider profile:", error);
-            throw error;
-        } finally {
-            setLoading(false);
-        }
-    };
-
     return { 
         register,
         loading,
@@ -237,7 +225,6 @@ export default function ProviderServices() {
         // Novo método unificado de filtro:
         getFilteredProviders,
         getBestRatedProviders,
-        getReviews,
-        updateProvider
+        getReviews
     };
 }
