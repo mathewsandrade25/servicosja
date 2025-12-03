@@ -116,7 +116,6 @@ export default function ProviderServices() {
         })
     }, [url, setLoading, setProviderAccount])
 
-    // NOVO: Função unificada para aplicar múltiplos filtros
     const getFilteredProviders = useCallback(async ({ material, hours24, weekend, service, category, minRating }) => {
         setLoading(true);
         const params = [];
@@ -147,7 +146,13 @@ export default function ProviderServices() {
                 method:'GET',
                 headers:{ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' },
             });
-            const result = await response.json(); 
+            let result = await response.json(); 
+
+            // Client-side filtering for minRating if backend returns unfiltered list
+            if (minRating) {
+                 result = result.filter(p => (p.nota_media || 0) >= minRating);
+            }
+
             setPoviders(result);
             console.log(`Filtro(s) aplicado(s) na URL: ${queryString}`);
         } catch(error) {

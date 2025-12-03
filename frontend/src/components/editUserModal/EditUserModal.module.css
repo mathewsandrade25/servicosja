@@ -20,11 +20,17 @@
     gap: 10px;
 }
 
-.modalContent input {
+.modalContent input, .modalContent textarea, .modalContent select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
+    background-color: white;
+}
+
+.modalContent textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
 .modalContent button {
