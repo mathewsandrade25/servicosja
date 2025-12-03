@@ -118,31 +118,18 @@ export default function UserPerfil({ userData = mockUserData }) {
                 </button>
             </header>
 
-            {/* --- Abas de Navegação (Tabs) --- */}
-            <div className={styles.tabs}>
-                <a
-                    href="#"
-                    onClick={(e) => { e.preventDefault(); setActiveTab(TABS.DASHBOARD); }}
-                    // Uso de template literal para classes condicionais
-                    className={getTabClassName(TABS.DASHBOARD)}
-                >
-                    {TABS.DASHBOARD}
-                </a>
-                <a
-                    href="#"
-                    onClick={(e) => { e.preventDefault(); setActiveTab(TABS.MESSAGES); }}
-                    className={getTabClassName(TABS.MESSAGES)}
-                >
-                    {TABS.MESSAGES}
-                </a>
-            </div>
+           
 
             {/* --- Conteúdo Principal (Container) --- */}
             <div className={styles.container}>
+                
 
                 {/* --- Informações Pessoais (Descrição) --- */}
                 <div className={styles.box}>
                     <h2>Informações Pessoais</h2>
+                    <div className={styles.iconEdit} onClick={() => setOpenEditModal(true)}>
+                                        <FaEdit />
+                                    </div>
                     <div className={styles.descricaoGrid}>
                         <span>Nome: {displayData.nome}</span>
                         <span>Data de Nasc: {displayData.dataNasc}</span>

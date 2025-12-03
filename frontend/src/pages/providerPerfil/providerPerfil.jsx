@@ -4,8 +4,10 @@ import ProviderServices from '../../services/provider';
 import { useNavigate } from 'react-router';
 import RatingChart from './RatingChart'; 
 import { FaEdit, FaSignOutAlt } from "react-icons/fa";
+import { FaCheckDouble , FaX  } from "react-icons/fa6";
 import { useAuth } from '../../context/AuthContext';
 import EditProviderModal from '../../components/editProviderModal/EditProviderModal';
+import { green } from '@mui/material/colors';
 
 const mockUserData = {
     nome: "Eduardo Jesen",
@@ -245,15 +247,41 @@ export default function ProviderPerfil({ userData = mockUserData }) {
                         <span>Disponibilidade: {providerAccount?.disponibilidade === true ? "Disponivel final de semana" : "Indisponivel final de semana"}</span>
                         <span>Cidade: {providerAccount?.cidade}</span>
                         <span>Bairro: {providerAccount?.bairro}</span>
+
+                         <div className={styles.box2}>
+                            <h2>Descrição</h2>
+
+                            <textarea placeholder='Bibiografia' value={providerAccount?.biografia || ''} readOnly>
+                            </textarea>
+                        </div>
                     </div>
                 </div>
 
                 <div className={styles.box}>
-                    <h2>Descrição</h2>
+                    <h2>Solicitações de serviços</h2>
 
-                    <textarea placeholder='Digite sua descrição' value={providerAccount?.biografia || ''} readOnly>
-                    </textarea>
+                    <div className={styles.solicitMain }>
+                        <h5>Nome do cliente</h5>
+                        <h5>Data</h5>
+                        <h5>Realizou o serviço?</h5>
+                        
+                        
+                    </div>
+
+                    <div className={styles.solicit}>
+                        <h5>Roberta moura</h5>
+                        <h5>03/12/2025</h5>
+                          <div style={{color:'green' , fontSize:'22px', cursor:'pointer'}}>
+                            <FaCheckDouble />
+                        </div>
+
+                        <div  style={{color:'red' , fontSize:'22px', cursor:'pointer'}}>
+                            <FaX />
+                        </div>
+                    </div>
                 </div>
+
+               
 
                 {/* 2. Mensagens e Galeria */}
                 <div className={`${styles.flex} ${styles.colum}`}>
