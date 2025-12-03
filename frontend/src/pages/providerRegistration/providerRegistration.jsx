@@ -3,7 +3,6 @@ import { IMaskInput } from 'react-imask';
 import styles from './Registration.module.css';
 import ProviderServices from '../../services/provider';
 import Loading from '../loading/loading';
-import { useNavigate } from 'react-router';
 
 // --- ARRAYS E FUNÇÕES AUXILIARES (PERMANECEM INALTERADOS) ---
 const allCategores = [
@@ -149,7 +148,7 @@ const formatDateToISO = (dateStr) => {
     if (!dateStr || dateStr.length !== 10) return dateStr;
     const [day, month, year] = dateStr.split('/');
     if (day && month && year) {
-        return `${day}/${month}/${year}`;
+        return `${year}-${month}-${day}`;
     }
     return dateStr;
 };
@@ -232,8 +231,6 @@ export default function ProviderRegistration() {
 
     const { register, loading } = ProviderServices();
 
-    const navigate = useNavigate()
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormErrors({}); 
@@ -241,12 +238,7 @@ export default function ProviderRegistration() {
         register(formDataProvider)
             .then((result) => {
                 console.log('Cadastro realizado com sucesso!', result);
-                 localStorage.setItem(
-                'auth',
-                JSON.stringify(result)
-                
-            );
-            navigate('/providerPerfil')
+                // Adicione aqui a lógica de sucesso (redirecionamento)
             })
             .catch((errorObject) => {
                 console.error('Erros de validação da API:', errorObject);
