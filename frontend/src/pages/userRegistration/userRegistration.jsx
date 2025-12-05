@@ -1,13 +1,14 @@
-// components/UserRegistration.js (ou sua página de cadastro)
+// components/UserRegistration.js
 
 import { useState } from 'react';
 import { IMaskInput } from 'react-imask';
-import { useNavigate } from 'react-router-dom'; // 👈 Importação para React Router Dom v6
+import { useNavigate } from 'react-router-dom';
 import styles from './Registration.module.css';
 import UserServices from '../../services/user';
 import Loading from '../loading/loading';
+import Loading2 from '../loading/loading2'; // 👈 NOVO: Componente para Mobile Loading
 import { useAuth } from '../../context/AuthContext';
-
+import { useIsMobile } from '../../hook/useIsMobile';// 👈 NOVO: Hook para detecção de tela
 
 // --- Funções Auxiliares (Não Mudaram) ---
 const cleanNonNumeric = (value) => {
@@ -24,9 +25,10 @@ const getErrorMessage = (formErrors, fieldName) => {
 
 
 export default function UserRegistration() {
-    // 💡 Hook de navegação do React Router Dom
+    // 💡 Hooks e Variáveis
     const navigate = useNavigate(); 
     const { setAuthData } = useAuth();
+    const isMobile = useIsMobile(); // 👈 Utilizando o hook para detectar se é mobile
     
     const [formDataUser, setFormDataUser] = useState({});
     const [formErrors, setFormErrors] = useState({}); 
@@ -35,7 +37,7 @@ export default function UserRegistration() {
     
     const caseSensitiveFields = ['password', 'password2', 'genero'];
 
-    // --- Handlers (Não Mudaram) ---
+    // --- Handlers ---
     const handleChangeSetDataUser = (e) => {
         const { name, value } = e.target;
         
@@ -99,10 +101,12 @@ export default function UserRegistration() {
     };
     
 
+    // 💡 NOVO: Lógica de Carregamento Condicional
     if(loading){
-        return(
-            <Loading/>
-        )
+        if (isMobile) {
+            return <div className={styles.load}><Loading2 /></div> // Carregamento para Mobile
+        }
+        return <Loading />; // Carregamento para Desktop
     }
 
     return (
@@ -125,39 +129,36 @@ export default function UserRegistration() {
                         required 
                     />
                     
-                      
-                            {getErrorMessage(formErrors, 'cpf') && (
-                                <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'cpf')}</p>
-                            )}
+                    {getErrorMessage(formErrors, 'cpf') && (
+                        <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'cpf')}</p>
+                    )}
                     
-                            {getErrorMessage(formErrors, 'dt_nascimento') && (
-                                <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'dt_nascimento')}</p>
-                            )}
-                      
+                    {getErrorMessage(formErrors, 'dt_nascimento') && (
+                        <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'dt_nascimento')}</p>
+                    )}
+                    
                     <div className={styles.input50}>
                         {/* Campo: cpf */}
+                        <IMaskInput
+                            mask="000.000.000-00"
+                            name='cpf' 
+                            onAccept={(value, mask, e) => handleMaskedInputChange(value, mask, { target: { name: 'cpf' } })}
+                            value={formDataUser.cpf || ''}
+                            placeholder='Cpf'
+                            type="text" 
+                            required 
+                        /> 
                         
-                            <IMaskInput
-                                mask="000.000.000-00"
-                                name='cpf' 
-                                onAccept={(value, mask, e) => handleMaskedInputChange(value, mask, { target: { name: 'cpf' } })}
-                                value={formDataUser.cpf || ''}
-                                placeholder='Cpf'
-                                type="text" 
-                                required 
-                            /> 
-                       
-                        
-                        
-                            <IMaskInput
-                                mask="00/00/0000"
-                                name='dt_nascimento'
-                                onAccept={(value, mask, e) => handleMaskedInputChange(value, mask, { target: { name: 'dt_nascimento' } })} 
-                                value={formDataUser.dt_nascimento || ''}
-                                placeholder='Data de nascimento'
-                                type="text"
-                                required 
-                            /> 
+                        {/* Campo: dt_nascimento */}
+                        <IMaskInput
+                            mask="00/00/0000"
+                            name='dt_nascimento'
+                            onAccept={(value, mask, e) => handleMaskedInputChange(value, mask, { target: { name: 'dt_nascimento' } })} 
+                            value={formDataUser.dt_nascimento || ''}
+                            placeholder='Data de nascimento'
+                            type="text"
+                            required 
+                        /> 
                         
                     </div>
                     
@@ -179,38 +180,35 @@ export default function UserRegistration() {
                     </select>
 
 
-                         {getErrorMessage(formErrors, 'rua') && (
-                                <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'rua')}</p>
-                            )}
+                    {getErrorMessage(formErrors, 'rua') && (
+                        <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'rua')}</p>
+                    )}
 
-                             {getErrorMessage(formErrors, 'numero_casa') && (
-                                <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'numero_casa')}</p>
-                            )}
-                           
-
-
+                    {getErrorMessage(formErrors, 'numero_casa') && (
+                        <p className={styles.errorMessage}>{getErrorMessage(formErrors, 'numero_casa')}</p>
+                    )}
+                    
                     <div className={styles.input50}>
-                       
-
-                            
-                            <input 
-                                type="text" 
-                                placeholder='Rua' 
-                                name='rua' 
-                                value={formDataUser.rua || ''}
-                                onChange={handleChangeSetDataUser} 
-                                required
-                            /> 
-                       
-                           
-                            <input 
-                                type="number" 
-                                placeholder='Numero' 
-                                name='numero_casa' 
-                                value={formDataUser.numero_casa || ''}
-                                onChange={handleChangeSetDataUser} 
-                                required
-                            /> 
+                        
+                        {/* Campo: rua */}
+                        <input 
+                            type="text" 
+                            placeholder='Rua' 
+                            name='rua' 
+                            value={formDataUser.rua || ''}
+                            onChange={handleChangeSetDataUser} 
+                            required
+                        /> 
+                        
+                        {/* Campo: numero_casa */}
+                        <input 
+                            type="number" 
+                            placeholder='Numero' 
+                            name='numero_casa' 
+                            value={formDataUser.numero_casa || ''}
+                            onChange={handleChangeSetDataUser} 
+                            required
+                        /> 
                         
                     </div>
 

@@ -4,12 +4,13 @@ import { Dialog } from '@mui/material'
 import { IoExitOutline } from "react-icons/io5";
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import Loading2 from '../../pages/loading/loading2';
 
 export default function LoginUserPopup({ open, close }) {
 
     const [userLogin, setUserLogin] = useState({});
     const [error, setError] = useState(null);
-    const { login } = useAuth();
+    const { login ,  loading2} = useAuth();
     const navigate = useNavigate();
 
     const handleChangeLogin = (e) => {
@@ -52,6 +53,7 @@ export default function LoginUserPopup({ open, close }) {
     return (
         <>
             <Dialog className={styles.popupContainer} onClose={close} open={open}>
+               
                 <div className={styles.popup}>
                     <div className={styles.popupMenu}>
                         <img src="/img/logo/logo.png" alt="Logo serviços já" />
@@ -62,6 +64,9 @@ export default function LoginUserPopup({ open, close }) {
                     </div>
 
                     <div className={styles.popupBody}>
+
+                     {loading2 ? <Loading2/> :
+               <>   
                         <h3>Acesse Sua Conta</h3>
                         <p>Entre com email e senha para ter acesso a sua conta</p>
 
@@ -92,13 +97,16 @@ export default function LoginUserPopup({ open, close }) {
                             </button>
                             <a href="#">Esqueceu a senha?</a>
                         </form>
-
+                    </>
+                        } 
                     </div>
-
+                    
                     <div className={styles.popupFooter}>
                         <button onClick={() => navigate("/userRegistration")}>Não Tem Uma Conta? Cadastre-se</button>
                     </div>
                 </div>
+               
+                
 
             </Dialog>
         </>

@@ -17,7 +17,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 80vh;
+    min-height: 100%;
     color: var(--orange);
     font-size: 3rem;
     font-family: var(--font);

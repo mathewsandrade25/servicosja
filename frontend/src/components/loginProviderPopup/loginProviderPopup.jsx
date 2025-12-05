@@ -5,6 +5,7 @@ import { IoExitOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router';
 import Loading2 from '../../pages/loading/loading2';
 import { useAuth } from '../../context/AuthContext';
+import ProviderServices from '../../services/provider';
 
 export default function LoginProviderPopup({ open, close }) {
 
@@ -12,7 +13,8 @@ export default function LoginProviderPopup({ open, close }) {
     const [providerLogin, setProviderLogin] = useState({});
     const [error, setError] = useState(null);
 
-    const { login, loading } = useAuth(); // Using AuthContext
+    const { login , loading2 } = useAuth();
+    const {} = ProviderServices()
 
     const handleChangeLogin = (e) => {
         const { name, value } = e.target;
@@ -73,7 +75,7 @@ export default function LoginProviderPopup({ open, close }) {
 
 
                     <div className={styles.popupBody}>
-                        {loading ? <Loading2 /> :
+                        {loading2 ? <Loading2 /> :
                             <>
                                 <h3>Acesse Sua Conta</h3>
                                 <p>Entre com email e senha para ter acesso a sua conta</p>

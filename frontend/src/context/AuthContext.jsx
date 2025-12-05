@@ -10,6 +10,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [loading2, setLoading2] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -33,6 +34,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
+        setLoading2(true)
         try {
             const baseUrl = import.meta.env.VITE_API_URL || '/api';
             const response = await fetch(`${baseUrl}/auth/token/login/`, {
@@ -48,7 +50,7 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) {
                 throw data;
             }
-
+            setLoading2(false)
             localStorage.setItem('auth', JSON.stringify(data));
             setUser(data);
             setIsAuthenticated(true);
@@ -77,6 +79,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         isAuthenticated,
         login,
+        loading2,
         logout,
         setAuthData
     };
