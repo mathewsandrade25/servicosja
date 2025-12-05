@@ -31,7 +31,7 @@ export default function ProviderServices() {
             })
             .finally(() => {
                 setLoading(false);
-                console.log('finalizado');
+         
             });
         });
     };
@@ -62,14 +62,14 @@ export default function ProviderServices() {
             // --------------------------------
 
             const result = await response.json(); // Isso só é executado se response.ok for true
-            console.log("Resposta da API:", result);
+            
             return result; 
         } catch (error) {
             console.error(' Erro na requisição ou validação:', error);
             throw error; 
         } finally {
             setLoading(false);
-            console.log('finalizado');
+  
         }
     };
 
@@ -85,7 +85,6 @@ export default function ProviderServices() {
         .then((response) => response.json()) 
         .then((result) => {
             setPoviders(result)
-            console.log('todos')
         })
         .catch((error)=> {
             console.log(error)

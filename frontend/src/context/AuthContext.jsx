@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) {
                 throw data;
             }
-            setLoading2(false)
+            
             localStorage.setItem('auth', JSON.stringify(data));
             setUser(data);
             setIsAuthenticated(true);
@@ -59,6 +59,8 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("Login error:", error);
             throw error;
+        }finally{
+            setLoading2(false)
         }
     };
 
