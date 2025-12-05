@@ -164,6 +164,7 @@
 
 .sponsoredBox img{
     width: 130px; 
+    height: 130px;
     border-radius: 50%;
     border: 2px solid var(--orange);
     margin-bottom: 5px;

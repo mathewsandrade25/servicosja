@@ -235,7 +235,7 @@ export default function UserRegistration() {
                         name='telefone_contato' 
                         onAccept={(value, mask, e) => handleMaskedInputChange(value, mask, { target: { name: 'telefone_contato' } })}
                         value={formDataUser.telefone_contato || ''} 
-                        placeholder='telefone_contato'
+                        placeholder='Telefone'
                         type="tel" 
                         required 
                     /> 
