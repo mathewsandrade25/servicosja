@@ -48,3 +48,14 @@
 .modalContent button:hover {
     background-color: #110263;
 }
+
+
+@media screen and (max-width: 800px) {
+    .modalContent {
+    
+    width: 300px;
+  
+    
+}
+
+}

@@ -7,6 +7,7 @@
     flex-direction: column;
     gap: 15px;
     font-family: var(--font);
+    
 }
 
 .modalContent h2 {
@@ -19,6 +20,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    
 }
 
 .modalContent input, .modalContent textarea, .modalContent select {
@@ -27,11 +29,13 @@
     border-radius: 5px;
     font-size: 14px;
     background-color: white;
+    width: 80%;
 }
 
 .modalContent textarea {
     min-height: 100px;
     resize: vertical;
+    width: 80%;
 }
 
 .modalContent button {
@@ -47,4 +51,20 @@
 
 .modalContent button:hover {
     background-color: #110263;
+}
+
+
+@media screen and (max-width: 800px) {
+    .modalContent {
+    padding: 20px;
+    width: 300px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: var(--font);
+    
+}
+
 }
